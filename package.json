@@ -1,0 +1,70 @@
+{
+	"name": "tiny-sparkline",
+	"version": "0.0.1",
+	"description": "Tiny inline SVG sparkline charts for React. Line, area, bar, dot — with tooltips and animations. <2KB gzipped. Zero dependencies.",
+	"type": "module",
+	"license": "MIT",
+	"author": "Franz Benthin",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/mulkatz/tiny-sparkline"
+	},
+	"homepage": "https://github.com/mulkatz/tiny-sparkline#readme",
+	"bugs": {
+		"url": "https://github.com/mulkatz/tiny-sparkline/issues"
+	},
+	"keywords": [
+		"sparkline",
+		"chart",
+		"svg",
+		"inline",
+		"react",
+		"tiny",
+		"graph",
+		"data-visualization",
+		"dashboard",
+		"lightweight"
+	],
+	"exports": {
+		".": {
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
+		}
+	},
+	"main": "./dist/index.cjs",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"sideEffects": false,
+	"engines": {
+		"node": ">=18"
+	},
+	"files": ["dist"],
+	"scripts": {
+		"build": "tsup",
+		"dev": "tsup --watch",
+		"check": "biome check .",
+		"check:fix": "biome check --write .",
+		"test": "vitest run",
+		"test:watch": "vitest",
+		"prepublishOnly": "npm run build"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.0",
+		"@testing-library/jest-dom": "^6.9.1",
+		"@testing-library/react": "^16.3.2",
+		"@types/react": "^19.2.14",
+		"jsdom": "^28.1.0",
+		"tsup": "^8.3.0",
+		"typescript": "^5.7.0",
+		"vitest": "^3.0.0"
+	},
+	"peerDependencies": {
+		"react": ">=19.0.0"
+	}
+}

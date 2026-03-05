@@ -1,4 +1,4 @@
-# tiny-sparkline
+# react-tiny-sparkline
 
 Tiny inline SVG sparkline charts for React. Line, area, bar, dot — with tooltips and animations. <2KB gzipped. Zero dependencies.
 
@@ -17,13 +17,13 @@ Tiny inline SVG sparkline charts for React. Line, area, bar, dot — with toolti
 ## Install
 
 ```bash
-npm install tiny-sparkline
+npm install react-tiny-sparkline
 ```
 
 ## Quick Start
 
 ```tsx
-import { Sparkline } from 'tiny-sparkline';
+import { Sparkline } from 'react-tiny-sparkline';
 
 function Dashboard() {
   return (

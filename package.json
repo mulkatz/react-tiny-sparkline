@@ -1,5 +1,5 @@
 {
-	"name": "tiny-sparkline",
+	"name": "react-tiny-sparkline",
 	"version": "0.0.1",
 	"description": "Tiny inline SVG sparkline charts for React. Line, area, bar, dot — with tooltips and animations. <2KB gzipped. Zero dependencies.",
 	"type": "module",
@@ -7,11 +7,11 @@
 	"author": "Franz Benthin",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/mulkatz/tiny-sparkline"
+		"url": "https://github.com/mulkatz/react-tiny-sparkline"
 	},
-	"homepage": "https://github.com/mulkatz/tiny-sparkline#readme",
+	"homepage": "https://github.com/mulkatz/react-tiny-sparkline#readme",
 	"bugs": {
-		"url": "https://github.com/mulkatz/tiny-sparkline/issues"
+		"url": "https://github.com/mulkatz/react-tiny-sparkline/issues"
 	},
 	"keywords": [
 		"sparkline",

@@ -1,6 +1,6 @@
 {
 	"name": "react-tiny-sparkline",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"description": "Tiny inline SVG sparkline charts for React. Line, area, bar, dot — with tooltips and animations. <2KB gzipped. Zero dependencies.",
 	"type": "module",
 	"license": "MIT",
@@ -14,15 +14,17 @@
 		"url": "https://github.com/mulkatz/react-tiny-sparkline/issues"
 	},
 	"keywords": [
+		"react-sparkline",
 		"sparkline",
 		"chart",
 		"svg",
-		"inline",
 		"react",
+		"react-component",
 		"tiny",
-		"graph",
+		"micro-chart",
+		"sparkline-chart",
 		"data-visualization",
-		"dashboard",
+		"inline-chart",
 		"lightweight"
 	],
 	"exports": {

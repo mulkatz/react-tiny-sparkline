@@ -1,6 +1,22 @@
-# react-tiny-sparkline
+<p align="center"><img src="./icon.png" width="120" /></p>
 
-Tiny inline SVG sparkline charts for React. Line, area, bar, dot — with tooltips and animations. <2KB gzipped. Zero dependencies.
+<h1 align="center">react-tiny-sparkline</h1>
+
+<p align="center">
+Tiny inline SVG sparkline charts for React. Line, area, bar, dot — with tooltips and animations. &lt;2KB gzipped. Zero dependencies.
+</p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/react-tiny-sparkline"><img src="https://img.shields.io/npm/v/react-tiny-sparkline" alt="npm version" /></a>
+  <a href="https://bundlephobia.com/package/react-tiny-sparkline"><img src="https://img.shields.io/bundlephobia/minzip/react-tiny-sparkline" alt="bundle size" /></a>
+  <a href="https://github.com/mulkatz/react-tiny-sparkline/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/react-tiny-sparkline" alt="license" /></a>
+</p>
+
+<p align="center"><img src="./assets/demo.gif" width="800" /></p>
+
+<p align="center">
+  <a href="https://react-tiny-sparkline.mulkatz.dev"><strong>→ Live Demo</strong></a>
+</p>
 
 ## Features
 

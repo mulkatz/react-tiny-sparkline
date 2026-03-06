@@ -115,7 +115,15 @@ async function record() {
 		const featureChart = page.locator('svg[role="img"]').nth(6);
 		const box = await featureChart.boundingBox();
 		if (box) {
-			await smoothMove(page, box.x, box.y + box.height / 2, box.x + box.width, box.y + box.height / 2, 30, 40);
+			await smoothMove(
+				page,
+				box.x,
+				box.y + box.height / 2,
+				box.x + box.width,
+				box.y + box.height / 2,
+				30,
+				40,
+			);
 		}
 		await wait(600);
 

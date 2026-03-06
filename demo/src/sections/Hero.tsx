@@ -20,9 +20,7 @@ export function Hero() {
 
 	return (
 		<section className="py-24 text-center">
-			<h1 className="text-5xl font-bold tracking-tight text-zinc-50 mb-4">
-				react-tiny-sparkline
-			</h1>
+			<h1 className="text-5xl font-bold tracking-tight text-zinc-50 mb-4">react-tiny-sparkline</h1>
 			<p className="text-xl text-zinc-400 max-w-2xl mx-auto mb-16">
 				Tiny inline SVG sparkline charts for React. Line, area, bar, dot — with tooltips and
 				animations. &lt;2KB gzipped.

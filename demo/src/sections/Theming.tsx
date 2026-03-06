@@ -49,14 +49,9 @@ export function Theming() {
 			{/* Themed sparklines */}
 			<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 				{(["line", "area", "bar", "dot"] as const).map((variant) => (
-					<div
-						key={variant}
-						className="rounded-lg border border-zinc-800 bg-zinc-900/30 p-5"
-					>
+					<div key={variant} className="rounded-lg border border-zinc-800 bg-zinc-900/30 p-5">
 						<div className="flex items-center justify-between mb-3">
-							<span className="text-xs text-zinc-500 uppercase tracking-wider">
-								{variant}
-							</span>
+							<span className="text-xs text-zinc-500 uppercase tracking-wider">{variant}</span>
 						</div>
 						<Sparkline
 							data={DATA}

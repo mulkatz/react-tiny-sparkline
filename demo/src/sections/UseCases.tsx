@@ -50,16 +50,11 @@ export function UseCases() {
 			{/* Dashboard cards */}
 			<div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
 				{metrics.map((m) => (
-					<div
-						key={m.label}
-						className="rounded-lg border border-zinc-800 bg-zinc-900/30 p-4"
-					>
+					<div key={m.label} className="rounded-lg border border-zinc-800 bg-zinc-900/30 p-4">
 						<p className="text-xs text-zinc-500 mb-1">{m.label}</p>
 						<div className="flex items-end justify-between gap-2">
 							<div>
-								<p className="text-lg font-semibold text-zinc-100 tabular-nums">
-									{m.value}
-								</p>
+								<p className="text-lg font-semibold text-zinc-100 tabular-nums">{m.value}</p>
 								<p
 									className={`text-xs tabular-nums ${m.positive ? "text-emerald-400" : "text-red-400"}`}
 								>
@@ -98,14 +93,9 @@ export function UseCases() {
 					</thead>
 					<tbody>
 						{tableRows.map((row) => (
-							<tr
-								key={row.name}
-								className="border-b border-zinc-800/50 last:border-0"
-							>
+							<tr key={row.name} className="border-b border-zinc-800/50 last:border-0">
 								<td className="px-4 py-3 text-zinc-200">{row.name}</td>
-								<td className="px-4 py-3 text-right text-zinc-400 tabular-nums">
-									{row.views}
-								</td>
+								<td className="px-4 py-3 text-right text-zinc-400 tabular-nums">{row.views}</td>
 								<td className="px-4 py-3 text-right">
 									<span className="inline-block">
 										<Sparkline

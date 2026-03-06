@@ -57,9 +57,7 @@ export function Features() {
 				</div>
 
 				{showTooltip && (
-					<p className="text-xs text-zinc-600 text-center mt-4">
-						Hover the chart to see values
-					</p>
+					<p className="text-xs text-zinc-600 text-center mt-4">Hover the chart to see values</p>
 				)}
 			</div>
 

@@ -50,7 +50,7 @@ export function Variants() {
 			</div>
 
 			{/* Large preview */}
-			<div className="rounded-xl border border-zinc-800 bg-zinc-900/30 p-8 text-center h-48">
+			<div className="rounded-xl border border-zinc-800 bg-zinc-900/30 p-8 text-center min-h-52 flex flex-col items-center justify-around">
 				<Sparkline
 					data={SAMPLE_DATA}
 					variant={active}

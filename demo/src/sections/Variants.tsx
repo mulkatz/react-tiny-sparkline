@@ -40,7 +40,7 @@ export function Variants() {
 								color={active === v.value ? "#a78bfa" : "#71717a"}
 								width={100}
 								height={28}
-								curved={curved && (v.value === active)}
+								curved={curved && (v.value === active) && (v.value === "line" || v.value === "area")}
 								animate={false}
 							/>
 						</div>
@@ -62,7 +62,7 @@ export function Variants() {
 					tooltip
 					formatTooltip={(v) => `${v} units`}
 				/>
-				{active === 'line' || active === 'area' ? <div className="mt-6 flex justify-center gap-4">
+				{active === "line" || active === "area" ? <div className="mt-6 flex justify-center gap-4">
 					<label className="inline-flex items-center gap-2 text-sm text-zinc-400 cursor-pointer select-none">
 						<input
 							type="checkbox"

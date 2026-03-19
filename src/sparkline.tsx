@@ -29,6 +29,8 @@ export function Sparkline({
 	showTrend = false,
 	tooltip = false,
 	formatTooltip,
+	tooltipStyle,
+	renderTooltip,
 	padding = 2,
 	barGap = 0.2,
 	dotRadius = 3,
@@ -40,7 +42,8 @@ export function Sparkline({
 }: SparklineProps) {
 	const gradientId = useId();
 	const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-	const svgRef = useRef<SVGSVGElement>(null);
+	const [tooltipPosition, setTooltipPosition] = useState<{ x: number; y: number } | null>(null);
+		const svgRef = useRef<SVGSVGElement>(null);
 
 	const points = useMemo(
 		() => normalizeData(data, width, height, padding),
@@ -76,9 +79,13 @@ export function Sparkline({
 		const ratio = relX / rect.width;
 		const index = Math.round(ratio * (data.length - 1));
 		setHoveredIndex(Math.max(0, Math.min(data.length - 1, index)));
+		setTooltipPosition({ x: e.clientX, y: e.clientY });
 	};
 
-	const handleMouseLeave = () => setHoveredIndex(null);
+	const handleMouseLeave = () => {
+		setHoveredIndex(null);
+		setTooltipPosition(null);
+	};
 
 	if (data.length === 0) {
 		return (
@@ -103,6 +110,7 @@ export function Sparkline({
 			: null;
 
 	return (
+		<>
 		<span
 			style={{
 				display: "inline-flex",
@@ -207,18 +215,6 @@ export function Sparkline({
 						/>
 					</>
 				)}
-
-				{tooltip && hoveredIndex !== null && points[hoveredIndex] && (
-					<>
-						<circle
-							cx={points[hoveredIndex].x}
-							cy={points[hoveredIndex].y}
-							r={4}
-							fill={strokeColor}
-						/>
-						<title>{tooltipText}</title>
-					</>
-				)}
 			</svg>
 			{showTrend && (
 				<span
@@ -238,6 +234,29 @@ export function Sparkline({
 				</span>
 			)}
 		</span>
+		{ tooltip && tooltipText && tooltipPosition && (
+			<div
+				style={{
+					position: "fixed",
+					left: `${ tooltipPosition.x }px`,
+					top: `${ tooltipPosition.y }px`,
+					transform: "translate(-50%, -100%)",
+					pointerEvents: "none",
+					zIndex: 9999,
+					backgroundColor: "rgba(0, 0, 0, 0.9)",
+					color: "#fff",
+					padding: "4px 8px",
+					borderRadius: "4px",
+					fontSize: "12px",
+					whiteSpace: "nowrap",
+					fontFamily: "system-ui, -apple-system, sans-serif",
+					...tooltipStyle,
+					}}
+			>
+			{renderTooltip && hoveredIndex !== null ? renderTooltip(data[hoveredIndex], hoveredIndex) : tooltipText}
+			</div>
+		)}
+	</>
 	);
 }
 

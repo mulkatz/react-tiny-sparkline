@@ -34,6 +34,10 @@ export interface SparklineProps {
 	tooltip?: boolean;
 	/** Format tooltip value. Default: String(value) */
 	formatTooltip?: (value: number, index: number) => string;
+	/** Tooltip styling */
+	tooltipStyle?: CSSProperties;
+	/** Custom tooltip renderer for advanced use cases */
+	renderTooltip?: (value: number, index: number) => React.ReactNode;
 	/** Padding inside SVG. Default: 2 */
 	padding?: number;
 	/** Bar gap ratio (0-1) for bar variant. Default: 0.2 */

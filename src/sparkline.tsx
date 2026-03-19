@@ -43,7 +43,7 @@ export function Sparkline({
 	const gradientId = useId();
 	const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 	const [tooltipPosition, setTooltipPosition] = useState<{ x: number; y: number } | null>(null);
-		const svgRef = useRef<SVGSVGElement>(null);
+	const svgRef = useRef<SVGSVGElement>(null);
 
 	const points = useMemo(
 		() => normalizeData(data, width, height, padding),
@@ -108,6 +108,28 @@ export function Sparkline({
 				? formatTooltip(data[hoveredIndex], hoveredIndex)
 				: String(data[hoveredIndex])
 			: null;
+	
+	
+	const tooltipOffset = 8;
+	const clampedTooltipPosition =
+		tooltipPosition && typeof window !== "undefined"
+			? {
+				left: Math.max(
+					tooltipOffset,
+					Math.min(
+						window.innerWidth - tooltipOffset,
+						tooltipPosition.x + tooltipOffset,
+					),
+				),
+				top: Math.max(
+					tooltipOffset,
+					Math.min(
+						window.innerHeight - tooltipOffset,
+						tooltipPosition.y - tooltipOffset,
+					),
+				),
+			}
+			: null;
 
 	return (
 		<>
@@ -117,9 +139,13 @@ export function Sparkline({
 				alignItems: "center",
 				gap: showTrend ? "0.25em" : undefined,
 				...style,
-			}}
+			}}	
 			className={className}
-		>
+			tabIndex={0}
+			aria-describedby={
+				tooltip && tooltipText && tooltipPosition ? "sparkline-tooltip" : undefined
+			}	
+	    >
 			<svg
 				ref={svgRef}
 				width={width}
@@ -234,13 +260,13 @@ export function Sparkline({
 				</span>
 			)}
 		</span>
-		{ tooltip && tooltipText && tooltipPosition && (
+		{tooltip && hoveredIndex !== null && tooltipPosition && (
 			<div
+				id="sparkline-tooltip"
+				role="tooltip"
 				style={{
 					position: "fixed",
-					left: `${ tooltipPosition.x }px`,
-					top: `${ tooltipPosition.y }px`,
-					transform: "translate(-50%, -100%)",
+					...(clampedTooltipPosition ?? {}),
 					pointerEvents: "none",
 					zIndex: 9999,
 					backgroundColor: "rgba(0, 0, 0, 0.9)",
@@ -253,7 +279,7 @@ export function Sparkline({
 					...tooltipStyle,
 					}}
 			>
-			{renderTooltip && hoveredIndex !== null ? renderTooltip(data[hoveredIndex], hoveredIndex) : tooltipText}
+			{renderTooltip ? renderTooltip(data[hoveredIndex], hoveredIndex) : tooltipText}
 			</div>
 		)}
 	</>

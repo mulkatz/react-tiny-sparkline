@@ -75,9 +75,11 @@ export function Sparkline({
 		const svg = svgRef.current;
 		if (!svg) return;
 		const rect = svg.getBoundingClientRect();
+		if (rect.width <= 0) return;
 		const relX = e.clientX - rect.left;
 		const ratio = relX / rect.width;
 		const index = Math.round(ratio * (data.length - 1));
+		if (!Number.isFinite(index)) return;
 		setHoveredIndex(Math.max(0, Math.min(data.length - 1, index)));
 		setTooltipPosition({ x: e.clientX, y: e.clientY });
 	};

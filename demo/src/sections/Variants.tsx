@@ -26,7 +26,7 @@ export function Variants() {
 						key={v.value}
 						type="button"
 						onClick={() => setActive(v.value)}
-						className={`text-left rounded-lg border p-5 transition-colors ${ 
+						className={`text-left rounded-lg border p-5 transition-colors ${
 							active === v.value
 							? "border-violet-500/50 bg-violet-500/5"
 							: "border-zinc-800 bg-zinc-900/30 hover:border-zinc-700"

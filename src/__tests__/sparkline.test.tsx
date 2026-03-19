@@ -99,4 +99,36 @@ describe("Sparkline", () => {
 		const style = container.querySelector("style");
 		expect(style).toBeNull();
 	});
+
+	it("renders custom tooltip content", () => {
+		const { container } = render(
+			<Sparkline
+				data={[1, 2, 3]}
+				tooltip
+				formatTooltip={(value) => `Custom: ${value}`}
+			/>
+		);
+		const tooltip = container.querySelector(".tooltip");
+		expect(tooltip).not.toBeNull();
+		expect(tooltip?.textContent).toBe("Custom: 3");
+	});
+
+	it("renders custom tooltip element", () => {
+		const CustomTooltip = ({ value }: { value: number }) => (
+			<div className="custom-tooltip">Value is {value}</div>
+		);
+
+		const { container } = render(
+			<Sparkline
+				data={[1, 2, 3]}
+				tooltip
+				renderTooltip={(value) => <CustomTooltip value={value} />}
+			/>
+		);
+		const tooltip = container.querySelector(".custom-tooltip");
+		expect(tooltip).not.toBeNull();
+		expect(tooltip?.textContent).toBe("Value is 3");
+	});
+
+
 });

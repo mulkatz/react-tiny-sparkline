@@ -79,6 +79,114 @@ export function Theming() {
 }`}</code>
 				</pre>
 			</div>
+
+			{/* Tooltip Styling Section */}
+			<div className="mt-12">
+				<h3 className="text-xl font-semibold text-zinc-100 mb-2">Tooltip Styling</h3>
+				<p className="text-zinc-400 mb-8">
+					Customize tooltips with CSS styles or render custom HTML elements.
+				</p>
+
+				<div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+					{/* Custom Tooltip Styles */}
+					<div>
+						<div className="rounded-lg border border-zinc-800 bg-zinc-900/30 p-6 mb-4">
+							<p className="text-xs text-zinc-500 uppercase tracking-wider mb-4">Custom Styles</p>
+							<div className="flex justify-center">
+								<Sparkline
+									data={DATA}
+									variant="area"
+									color={theme.color}
+									fillColor={theme.fill}
+									width={280}
+									height={60}
+									curved
+									tooltip
+									formatTooltip={(v) => `${v} pts`}
+									tooltipStyle={{
+										backgroundColor: theme.color,
+										color: "#000",
+										padding: "6px 12px",
+										borderRadius: "6px",
+										fontSize: "13px",
+										fontWeight: "bold",
+										boxShadow: `0 4px 12px rgba(0, 0, 0, 0.3)`,
+									}}
+								/>
+							</div>
+						</div>
+						<div className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-5">
+							<pre className="text-xs text-zinc-400 overflow-x-auto">
+								<code>{`<Sparkline
+  tooltip
+  tooltipStyle={{
+    backgroundColor: "${theme.color}",
+    color: "#000",
+    padding: "6px 12px",
+    fontWeight: "bold",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
+  }}
+/>`}</code>
+							</pre>
+						</div>
+					</div>
+
+					{/* Custom Tooltip Render */}
+					<div>
+						<div className="rounded-lg border border-zinc-800 bg-zinc-900/30 p-6 mb-4">
+							<p className="text-xs text-zinc-500 uppercase tracking-wider mb-4">Custom HTML</p>
+							<div className="flex justify-center">
+								<Sparkline
+									data={DATA}
+									variant="area"
+									color={theme.color}
+									fillColor={theme.fill}
+									width={280}
+									height={60}
+									curved
+									tooltip
+									renderTooltip={(value, index) => (
+										<div
+											style={{
+												display: "flex",
+												flexDirection: "column",
+												alignItems: "center",
+												gap: "4px",
+											}}
+										>
+											<div style={{ fontSize: "11px", opacity: 0.8 }}>Point {index + 1}</div>
+											<div style={{ fontSize: "14px", fontWeight: "bold" }}>{value} pts</div>
+											<div
+												style={{
+													fontSize: "10px",
+													opacity: 0.6,
+													marginTop: "2px",
+												}}
+											>
+												{Math.round((value / Math.max(...DATA)) * 100)}%
+											</div>
+										</div>
+									)}
+								/>
+							</div>
+						</div>
+						<div className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-5">
+							<pre className="text-xs text-zinc-400 overflow-x-auto">
+								<code>{`<Sparkline
+  tooltip
+  renderTooltip={(value, index) => (
+    <div>
+      <div>Point {index + 1}</div>
+      <div>{value} pts</div>
+      <div>{Math.round((value/max)*100)}%</div>
+    </div>
+  )}
+/>`}</code>
+							</pre>
+						</div>
+					</div>
+				</div>
+			</div>
 		</section>
 	);
 }

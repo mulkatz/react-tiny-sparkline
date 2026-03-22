@@ -110,7 +110,7 @@ export function Theming() {
 										borderRadius: "6px",
 										fontSize: "13px",
 										fontWeight: "bold",
-										boxShadow: `0 4px 12px rgba(0, 0, 0, 0.3)`,
+										boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
 									}}
 								/>
 							</div>

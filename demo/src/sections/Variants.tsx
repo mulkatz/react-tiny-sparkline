@@ -28,9 +28,9 @@ export function Variants() {
 						onClick={() => setActive(v.value)}
 						className={`text-left rounded-lg border p-5 transition-colors ${
 							active === v.value
-							? "border-violet-500/50 bg-violet-500/5"
-							: "border-zinc-800 bg-zinc-900/30 hover:border-zinc-700"
-							}`}
+								? "border-violet-500/50 bg-violet-500/5"
+								: "border-zinc-800 bg-zinc-900/30 hover:border-zinc-700"
+						}`}
 					>
 						<div className="flex items-center justify-between mb-3">
 							<span className="text-sm font-medium text-zinc-200">{v.label}</span>
@@ -40,7 +40,7 @@ export function Variants() {
 								color={active === v.value ? "#a78bfa" : "#71717a"}
 								width={100}
 								height={28}
-								curved={curved && (v.value === active) && (v.value === "line" || v.value === "area")}
+								curved={curved && v.value === active && (v.value === "line" || v.value === "area")}
 								animate={false}
 							/>
 						</div>
@@ -62,17 +62,19 @@ export function Variants() {
 					tooltip
 					formatTooltip={(v) => `${v} units`}
 				/>
-				{active === "line" || active === "area" ? <div className="mt-6 flex justify-center gap-4">
-					<label className="inline-flex items-center gap-2 text-sm text-zinc-400 cursor-pointer select-none">
-						<input
-							type="checkbox"
-							checked={curved}
-							onChange={(e) => setCurved(e.target.checked)}
-							className="accent-violet-500"
-						/>
-						Curved
-					</label>
-				</div> : null }
+				{active === "line" || active === "area" ? (
+					<div className="mt-6 flex justify-center gap-4">
+						<label className="inline-flex items-center gap-2 text-sm text-zinc-400 cursor-pointer select-none">
+							<input
+								type="checkbox"
+								checked={curved}
+								onChange={(e) => setCurved(e.target.checked)}
+								className="accent-violet-500"
+							/>
+							Curved
+						</label>
+					</div>
+				) : null}
 			</div>
 		</section>
 	);

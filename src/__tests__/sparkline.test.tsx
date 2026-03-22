@@ -101,13 +101,7 @@ describe("Sparkline", () => {
 	});
 
 	it("renders custom tooltip content", () => {
-		render(
-			<Sparkline
-				data={[1, 2, 3]}
-				tooltip
-				formatTooltip={(value) => `Custom: ${value}`}
-			/>
-		);
+		render(<Sparkline data={[1, 2, 3]} tooltip formatTooltip={(value) => `Custom: ${value}`} />);
 
 		const svg = screen.getByRole("img") as SVGElement;
 
@@ -123,7 +117,7 @@ describe("Sparkline", () => {
 				x: 0,
 				y: 0,
 				toJSON: () => ({}),
-			} as DOMRect);
+			}) as DOMRect;
 
 		// Move mouse near the last data point (index 2, value 3)
 		fireEvent.mouseMove(svg, { clientX: 290, clientY: 10 });
@@ -143,7 +137,7 @@ describe("Sparkline", () => {
 				data={[1, 2, 3]}
 				tooltip
 				renderTooltip={(value) => <CustomTooltip value={value} />}
-			/>
+			/>,
 		);
 
 		const svg = screen.getByRole("img") as SVGElement;
@@ -159,7 +153,7 @@ describe("Sparkline", () => {
 				x: 0,
 				y: 0,
 				toJSON: () => ({}),
-			} as DOMRect);
+			}) as DOMRect;
 
 		// Move mouse near the last data point (index 2, value 3)
 		fireEvent.mouseMove(svg, { clientX: 290, clientY: 10 });
@@ -168,6 +162,4 @@ describe("Sparkline", () => {
 		expect(tooltip).toBeDefined();
 		expect(tooltip.textContent).toBe("Value is 3");
 	});
-
-
 });

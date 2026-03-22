@@ -29,6 +29,8 @@ export function Sparkline({
 	showTrend = false,
 	tooltip = false,
 	formatTooltip,
+	tooltipStyle,
+	renderTooltip,
 	padding = 2,
 	barGap = 0.2,
 	dotRadius = 3,
@@ -40,6 +42,7 @@ export function Sparkline({
 }: SparklineProps) {
 	const gradientId = useId();
 	const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+	const [tooltipPosition, setTooltipPosition] = useState<{ x: number; y: number } | null>(null);
 	const svgRef = useRef<SVGSVGElement>(null);
 
 	const points = useMemo(
@@ -72,13 +75,19 @@ export function Sparkline({
 		const svg = svgRef.current;
 		if (!svg) return;
 		const rect = svg.getBoundingClientRect();
+		if (rect.width <= 0) return;
 		const relX = e.clientX - rect.left;
 		const ratio = relX / rect.width;
 		const index = Math.round(ratio * (data.length - 1));
+		if (!Number.isFinite(index)) return;
 		setHoveredIndex(Math.max(0, Math.min(data.length - 1, index)));
+		setTooltipPosition({ x: e.clientX, y: e.clientY });
 	};
 
-	const handleMouseLeave = () => setHoveredIndex(null);
+	const handleMouseLeave = () => {
+		setHoveredIndex(null);
+		setTooltipPosition(null);
+	};
 
 	if (data.length === 0) {
 		return (
@@ -101,17 +110,44 @@ export function Sparkline({
 				? formatTooltip(data[hoveredIndex], hoveredIndex)
 				: String(data[hoveredIndex])
 			: null;
+	
+	
+	const tooltipOffset = 8;
+	const clampedTooltipPosition =
+		tooltipPosition && typeof window !== "undefined"
+			? {
+				left: Math.max(
+					tooltipOffset,
+					Math.min(
+						window.innerWidth - tooltipOffset,
+						tooltipPosition.x + tooltipOffset,
+					),
+				),
+				top: Math.max(
+					tooltipOffset,
+					Math.min(
+						window.innerHeight - tooltipOffset,
+						tooltipPosition.y - tooltipOffset,
+					),
+				),
+			}
+			: null;
 
 	return (
+		<>
 		<span
 			style={{
 				display: "inline-flex",
 				alignItems: "center",
 				gap: showTrend ? "0.25em" : undefined,
 				...style,
-			}}
+			}}	
 			className={className}
-		>
+			tabIndex={0}
+			aria-describedby={
+				tooltip && tooltipText && tooltipPosition ? "sparkline-tooltip" : undefined
+			}	
+	    >
 			<svg
 				ref={svgRef}
 				width={width}
@@ -207,18 +243,6 @@ export function Sparkline({
 						/>
 					</>
 				)}
-
-				{tooltip && hoveredIndex !== null && points[hoveredIndex] && (
-					<>
-						<circle
-							cx={points[hoveredIndex].x}
-							cy={points[hoveredIndex].y}
-							r={4}
-							fill={strokeColor}
-						/>
-						<title>{tooltipText}</title>
-					</>
-				)}
 			</svg>
 			{showTrend && (
 				<span
@@ -238,6 +262,29 @@ export function Sparkline({
 				</span>
 			)}
 		</span>
+		{tooltip && hoveredIndex !== null && tooltipPosition && (
+			<div
+				id="sparkline-tooltip"
+				role="tooltip"
+				style={{
+					position: "fixed",
+					...(clampedTooltipPosition ?? {}),
+					pointerEvents: "none",
+					zIndex: 9999,
+					backgroundColor: "rgba(0, 0, 0, 0.9)",
+					color: "#fff",
+					padding: "4px 8px",
+					borderRadius: "4px",
+					fontSize: "12px",
+					whiteSpace: "nowrap",
+					fontFamily: "system-ui, -apple-system, sans-serif",
+					...tooltipStyle,
+					}}
+			>
+			{renderTooltip ? renderTooltip(data[hoveredIndex], hoveredIndex) : tooltipText}
+			</div>
+		)}
+	</>
 	);
 }
 

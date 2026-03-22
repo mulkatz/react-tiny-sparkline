@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 import { Sparkline } from "../sparkline.js";
 
@@ -99,4 +99,75 @@ describe("Sparkline", () => {
 		const style = container.querySelector("style");
 		expect(style).toBeNull();
 	});
+
+	it("renders custom tooltip content", () => {
+		render(
+			<Sparkline
+				data={[1, 2, 3]}
+				tooltip
+				formatTooltip={(value) => `Custom: ${value}`}
+			/>
+		);
+
+		const svg = screen.getByRole("img") as SVGElement;
+
+		// Mock bounding box so mouse coordinates can be mapped to data indices
+		svg.getBoundingClientRect = () =>
+			({
+				left: 0,
+				top: 0,
+				right: 300,
+				bottom: 100,
+				width: 300,
+				height: 100,
+				x: 0,
+				y: 0,
+				toJSON: () => ({}),
+			} as DOMRect);
+
+		// Move mouse near the last data point (index 2, value 3)
+		fireEvent.mouseMove(svg, { clientX: 290, clientY: 10 });
+
+		const tooltip = screen.getByRole("tooltip");
+		expect(tooltip).toBeDefined();
+		expect(tooltip.textContent).toBe("Custom: 3");
+	});
+
+	it("renders custom tooltip element", () => {
+		const CustomTooltip = ({ value }: { value: number }) => (
+			<div className="custom-tooltip">Value is {value}</div>
+		);
+
+		render(
+			<Sparkline
+				data={[1, 2, 3]}
+				tooltip
+				renderTooltip={(value) => <CustomTooltip value={value} />}
+			/>
+		);
+
+		const svg = screen.getByRole("img") as SVGElement;
+
+		svg.getBoundingClientRect = () =>
+			({
+				left: 0,
+				top: 0,
+				right: 300,
+				bottom: 100,
+				width: 300,
+				height: 100,
+				x: 0,
+				y: 0,
+				toJSON: () => ({}),
+			} as DOMRect);
+
+		// Move mouse near the last data point (index 2, value 3)
+		fireEvent.mouseMove(svg, { clientX: 290, clientY: 10 });
+
+		const tooltip = screen.getByRole("tooltip");
+		expect(tooltip).toBeDefined();
+		expect(tooltip.textContent).toBe("Value is 3");
+	});
+
+
 });
